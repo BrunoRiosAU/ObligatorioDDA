@@ -1,16 +1,16 @@
 public class Persona {
 
 
-    private int id;
+    private String id;
     private String nombre;
     private String apellido;
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -27,6 +27,17 @@ public class Persona {
     }
 
     public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    @Override
+    public String toString() {
+        return this.id + " " + this.nombre + " " + this.apellido;
+    }
+
+    public Persona(String id, String nombre, String apellido) {
+        this.id = id;
+        this.nombre = nombre;
         this.apellido = apellido;
     }
 }
