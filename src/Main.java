@@ -8,6 +8,7 @@ public class Main {
     static List<DT> listaDT = new ArrayList<>();
     static List<Arbitro> listaArbitro = new ArrayList<>();
     static List<Equipo> listaEquipo = new ArrayList<>();
+    static List<JugadorEquipo> listaJugadorEquipo = new ArrayList<>();
     static List<Partido> listaPartido = new ArrayList<>();
     static List<ArbitroPartido> listaArbitroPartido = new ArrayList<>();
     static List<Gol> listaGol = new ArrayList<>();
@@ -45,7 +46,7 @@ public class Main {
     public static void administrarPersonas() {
         int opcion = 1;
         while (opcion != 0) {
-            System.out.println("Seleccione una opcion del menu de administrador de personas:\n1. Ingresar jugadores.\n2. Eliminar jugadores.\n3. Listar jugadores.\n4. Ingresar directores.\n5. Eliminar directores.\n6. Listar directores.\n7. Ingresar arbitros.\n8. Eliminar arbitros.\n9. Listar arbitros.\n0. Volver atras.");
+            System.out.println("Seleccione una opcion del menu de administrador de personas:\n1. Ingresar jugadores.\n2. Eliminar jugadores.\n3. Listar jugadores.\n4. Ingresar directores tecnicos.\n5. Eliminar directores tecnicos.\n6. Listar directores tecnicos.\n7. Ingresar arbitros.\n8. Eliminar arbitros.\n9. Listar arbitros.\n0. Volver atras.");
             opcion = scan.nextInt();
             switch (opcion) {
                 case 0:
@@ -88,29 +89,26 @@ public class Main {
     public static void administrarEquipos() {
         int opcion = 1;
         while (opcion != 0) {
-            System.out.println("Seleccione una opcion del menu de administrador de equipos:\n1. Crear un equipo.\n2. Eliminar un equipo.\n3. Ingresar jugadores.\n4. Eliminar jugadores.\n5. Ingresar directores tecnicos\n6. Listar equipos.\n0. Volver atras.");
+            System.out.println("Seleccione una opcion del menu de administrador de equipos:\n1. Crear un equipo.\n2. Eliminar un equipo.\n3. Listar equipos.\n4. Ingresar jugadores.\n5. Eliminar jugadores.\n0. Volver atras.");
             opcion = scan.nextInt();
             switch (opcion) {
                 case 0:
 
                     break;
                 case 1:
-
+                    altaEquipo();
                     break;
                 case 2:
-
+                    bajaEquipo();
                     break;
                 case 3:
-
+                    listarEquipos();
                     break;
                 case 4:
-
+                    altaJugadorEquipo();
                     break;
                 case 5:
-
-                    break;
-                case 6:
-
+                    bajaJugadorEquipo();
                     break;
                 default:
                     System.out.println("¡Seleccione una opcion valida!");
@@ -130,21 +128,7 @@ public class Main {
     //endregion
 
     //region personas
-/*
-super(id, nombre, apellido);
-        this.puesto = puesto;
-        this.numero = numero;
-        this.edad = edad;
-        this.tipo = tipo;
-*/
-    /*public static Jugador buscarJugador(Jugador pJugador){
-        for(Jugador unJugador : listaJugador){
-            if(pJugador.getNumero() == unJugador.getNumero()){
-                return unJugador;
-            }
-        }
-        return null;
-    }*/
+
     public static void altaJugador() {
         String[] rndm = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
         String id = "";
@@ -353,5 +337,201 @@ super(id, nombre, apellido);
 
     //endregion
 
+    //region equipos
+
+    public static void altaEquipo(){
+        String[] rndm = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+        String id = "";
+        int cont = 1;
+        while (cont != 0) {
+            cont = 0;
+            id = "";
+            for (int i = 0; i < 16; i++) {
+                id += rndm[(int) (Math.random() * 10)];
+            }
+            for (Equipo unEquipo : listaEquipo) {
+                if (unEquipo.getId().equals(id)) {
+                    cont++;
+                }
+            }
+        }
+        System.out.println("Ingrese el nombre del equipo.");
+        scan.nextLine();
+        String nombre = scan.next();
+        cont = 0;
+        for(DT unDT : listaDT){
+            System.out.println(cont+". "+unDT.toString());
+            cont++;
+        }
+        if(cont == 0){
+            System.out.println("No hay directores tecnicos registrados.");
+        }else{
+            System.out.println("Ingrese el numero del director tecnico.");
+            scan.nextLine();
+            int num = scan.nextInt();
+            String DT = "";
+            cont = 0;
+            for(DT unDT : listaDT){
+                if(cont == num){
+                    DT = unDT.getId();
+                }
+                cont++;
+            }
+            try {
+                Equipo pEquipo = new Equipo(id, nombre, DT);
+                listaEquipo.add(pEquipo);
+                System.out.println("Equipo ingresado con exito.");
+            } catch (Exception e) {
+                System.out.println("Ocurrio un error.");
+            }
+        }
+
+    }
+
+    public static void bajaEquipo(){
+        int cont = 0;
+        for (Equipo unEquipo : listaEquipo) {
+            System.out.println(cont + ". " + unEquipo.toString() + "  ");
+            cont++;
+        }
+        if (cont == 0) {
+            System.out.println("No hay equipos registrados.");
+        } else {
+            System.out.println("Elija un numero de equipo para borrar.");
+            int num = scan.nextInt();
+            try{
+                listaEquipo.remove(num);
+                System.out.println("Equipo eliminado.");
+            }catch (Exception e){
+                System.out.println("El equipo no existe.");
+            }
+        }
+    }
+
+    public static void listarEquipos(){
+        int cont = 0;
+        for(Equipo unEquipo : listaEquipo){
+            System.out.println(unEquipo.toString());
+            cont++;
+        }
+        if(cont == 0){
+            System.out.println("No hay equipos registrados.");
+        }
+    }
+
+    public static void altaJugadorEquipo(){
+        int contPos = 0;
+        for(Jugador unJugador : listaJugador){
+            int cont = 0;
+            for(JugadorEquipo unJE : listaJugadorEquipo){
+                if(unJE.getIdJugador().equals(unJugador.getId())){
+                    cont++;
+                }
+            }
+            if(cont == 0){
+                System.out.println(contPos+". "+unJugador.toString());
+                contPos++;
+            }
+        }
+        System.out.println("Ingrese el numero de jugador.");
+        scan.nextLine();
+        int numJ = scan.nextInt();
+        String idJugador = "";
+        Character tipo = ' ';
+        contPos = 0;
+        for(Jugador unJugador : listaJugador){
+            int cont = 0;
+            for(JugadorEquipo unJE : listaJugadorEquipo){
+                if(unJE.getIdJugador().equals(unJugador.getId())){
+                    cont++;
+                }
+            }
+            if(cont == 0 && contPos == numJ){
+                idJugador = unJugador.getId();
+                tipo = unJugador.getTipo();
+                contPos++;
+            }
+        }
+        int cont = 0;
+        int contT = 0;
+        int contS = 0;
+        for(Equipo unEquipo : listaEquipo){
+            contS = 0;
+            contT = 0;
+            for(JugadorEquipo unJE : listaJugadorEquipo){
+                if(unJE.getIdEquipo().equals(unEquipo.getId())){
+                    for(Jugador unJugador : listaJugador){
+                        if(unJugador.getTipo().equals('T')){
+                            contT++;
+                        }else if(unJugador.getTipo().equals('S')){
+                            contS++;
+                        }
+                    }
+                }
+            }
+            if(contT < 11 && tipo == 'T'){
+                System.out.println(cont+". "+unEquipo.toString());
+                cont++;
+            }else if(contS < 5 && tipo == 'S'){
+                System.out.println(cont+". "+unEquipo.toString());
+                cont++;
+            }
+        }
+        System.out.println("Ingrese el numero del equipo.");
+        scan.nextLine();
+        int numEquipo = scan.nextInt();
+        String idEquipo = "";
+        cont = 0;
+        for(Equipo unEquipo : listaEquipo){
+            contS = 0;
+            contT = 0;
+            for(JugadorEquipo unJE : listaJugadorEquipo){
+                if(unJE.getIdEquipo().equals(unEquipo.getId())){
+                    for(Jugador unJugador : listaJugador){
+                        if(unJugador.getTipo().equals('T')){
+                            contT++;
+                        }else if(unJugador.getTipo().equals('S')){
+                            contS++;
+                        }
+                    }
+                }
+            }
+            if(contT < 11 && tipo == 'T' && cont == numEquipo){
+                idEquipo = unEquipo.getId();
+            }else if(contS < 5 && tipo == 'S' && cont == numEquipo){
+                idEquipo = unEquipo.getId();
+            }
+        }
+
+        try {
+            JugadorEquipo pJugadorEquipo = new JugadorEquipo(idJugador, idEquipo);
+            listaJugadorEquipo.add(pJugadorEquipo);
+            System.out.println("Jugador ingresado con exito.");
+        } catch (Exception e) {
+            System.out.println("Ocurrio un error.");
+        }
+    }
+
+    public static void bajaJugadorEquipo(){
+        int cont = 0;
+        for (JugadorEquipo unJE : listaJugadorEquipo) {
+            System.out.println(cont + ". " + unJE.toString() + "  ");
+            cont++;
+        }
+        if (cont == 0) {
+            System.out.println("No hay jugadores en equipos registrados.");
+        } else {
+            System.out.println("Elija un numero de jugador en equipo para borrar.");
+            int num = scan.nextInt();
+            try{
+                listaJugadorEquipo.remove(num);
+                System.out.println("Jugador en equipo eliminado.");
+            }catch (Exception e){
+                System.out.println("El jugador en equipo no existe.");
+            }
+        }
+    }
+
+    //endregion
 
 }

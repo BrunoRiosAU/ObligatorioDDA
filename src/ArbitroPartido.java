@@ -1,20 +1,25 @@
 public class ArbitroPartido {
-    private int idArbitro;
-    private int idPartido;
+    private String idArbitro;
+    private String idPartido;
 
-    public int getIdArbitro() {
+    public String getIdArbitro() {
         return idArbitro;
     }
 
-    public void setIdArbitro(int idArbitro) {
+    public void setIdArbitro(String idArbitro) {
         this.idArbitro = idArbitro;
     }
 
-    public int getIdPartido() {
+    public String getIdPartido() {
         return idPartido;
     }
 
-    public void setIdPartido(int idPartido) {
+    public void setIdPartido(String idPartido) {
+        this.idPartido = idPartido;
+    }
+
+    public ArbitroPartido(String idArbitro, String idPartido) {
+        this.idArbitro = idArbitro;
         this.idPartido = idPartido;
     }
 }

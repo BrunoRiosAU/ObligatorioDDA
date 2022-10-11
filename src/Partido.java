@@ -1,5 +1,5 @@
 public class Partido {
-    private int id;
+    private String id;
     private String estadio;
     private short dia;
     private String hora;
@@ -9,11 +9,11 @@ public class Partido {
     private String equipoVisitante;
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -70,6 +70,17 @@ public class Partido {
     }
 
     public void setEquipoVisitante(String equipoVisitante) {
+        this.equipoVisitante = equipoVisitante;
+    }
+
+    public Partido(String id, String estadio, short dia, String hora, int minutosJugados, String clima, String equipoLocal, String equipoVisitante) {
+        this.id = id;
+        this.estadio = estadio;
+        this.dia = dia;
+        this.hora = hora;
+        this.minutosJugados = minutosJugados;
+        this.clima = clima;
+        this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
     }
 }

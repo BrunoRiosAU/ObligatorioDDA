@@ -1,14 +1,17 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Equipo {
-    private int id;
+    private String id;
     private String nombre;
-    private DT DT;
+    private String DT;
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -20,11 +23,22 @@ public class Equipo {
         this.nombre = nombre;
     }
 
-    public DT getDT() {
+    public String getDT() {
         return DT;
     }
 
-    public void setDT(DT DT) {
+    public void setDT(String DT) {
+        this.DT = DT;
+    }
+
+    @Override
+    public String toString() {
+        return this.nombre + " " + this.DT;
+    }
+
+    public Equipo(String id, String nombre, String DT) {
+        this.id = id;
+        this.nombre = nombre;
         this.DT = DT;
     }
 }
