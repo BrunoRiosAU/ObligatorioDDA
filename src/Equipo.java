@@ -6,6 +6,10 @@ public class Equipo {
     private String nombre;
     private String DT;
 
+    private  int CantJugT;
+    private  int CantJugS;
+
+
 
     public String getId() {
         return id;
@@ -41,4 +45,25 @@ public class Equipo {
         this.nombre = nombre;
         this.DT = DT;
     }
+    public Equipo(int CantJugT, int cantJugS)
+    {
+        this.CantJugT = CantJugT;
+        this.CantJugS = cantJugS;
+    }
+
+    public int getCantJugT() {
+        return CantJugT;
+    }
+
+    public void setCantJugT(int cantJugT) {
+        CantJugT = cantJugT;
+    }
+
+    public int getCantJugS() {
+        return CantJugS;
+    }
+    public void setCantJugS(int cantJugS) {
+        CantJugS = cantJugS;
+    }
+
 }

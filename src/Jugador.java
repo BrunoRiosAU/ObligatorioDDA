@@ -1,8 +1,8 @@
 public class Jugador extends Persona{
     private String puesto;
-    private int numero;
+
     private int edad;
-    private Character tipo;
+    private String tipo;
 
 
     public String getPuesto() {
@@ -13,13 +13,9 @@ public class Jugador extends Persona{
         this.puesto = puesto;
     }
 
-    public int getNumero() {
-        return numero;
-    }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
+
+
 
     public int getEdad() {
         return edad;
@@ -29,24 +25,24 @@ public class Jugador extends Persona{
         this.edad = edad;
     }
 
-    public Character getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(Character tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
     @Override
     public String toString() {
-        return super.getNombre() + " " + super.getApellido() + " " + this.puesto + " " + this.numero + " " + this.edad + " " + (this.tipo.equals('T')?"Titular":"Suplente");
+        return super.getNombre() + " " + super.getApellido() + " " + this.puesto + " " + this.edad + " " + (this.tipo.equals("T")?"Titular":"Suplente");
     }
 
-    public Jugador(String id, String nombre, String apellido, String puesto, int numero, int edad, Character tipo) {
+    public Jugador(String id, String nombre, String apellido, String puesto,  int edad, String tipo) {
         super(id, nombre, apellido);
         this.puesto = puesto;
-        this.numero = numero;
         this.edad = edad;
         this.tipo = tipo;
     }
+
 }
