@@ -8,6 +8,10 @@ public class Partido {
     private String equipoLocal;
     private String equipoVisitante;
 
+    @Override
+    public String toString() {
+        return this.id + " " + this.estadio + " " + this.equipoLocal + " " + this.equipoVisitante;
+    }
 
     public String getId() {
         return id;
