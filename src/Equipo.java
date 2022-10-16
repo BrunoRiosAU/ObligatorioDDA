@@ -45,6 +45,14 @@ public class Equipo {
         this.nombre = nombre;
         this.DT = DT;
     }
+
+    public Equipo(String id, String nombre, String DT, int T, int S) {
+        this.id = id;
+        this.nombre = nombre;
+        this.DT = DT;
+        this.CantJugT = T;
+        this.CantJugS = S;
+    }
     public Equipo(int CantJugT, int cantJugS)
     {
         this.CantJugT = CantJugT;

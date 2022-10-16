@@ -1,3 +1,4 @@
+
  import java.io.BufferedReader;
  import java.io.FileNotFoundException;
  import java.io.FileReader;
@@ -410,7 +411,14 @@ public class Main {
         } else {
             System.out.println("Selecionar Equipo Visitante");
             int eq1 = scan.nextInt();
-            Equipo Vistiante = listaEquipoListo.get(eq1);
+            Equipo Vistiante = null;
+            try {
+          Vistiante = listaEquipoListo.get(eq1);
+            }
+            catch (Exception e) {
+                System.out.println("No existe el equipo selecionado");
+            }
+
             try {
                 listaEquipoListo.remove(eq1);
 
@@ -425,7 +433,14 @@ public class Main {
 
             System.out.println("Selecionar Equipo Local");
             int eq2 = scan.nextInt();
-            Equipo Local = listaEquipoListo.get(eq2);
+            Equipo Local = null;
+            try {
+                 Local = listaEquipoListo.get(eq2);
+            }
+            catch (Exception e)
+            {
+                System.out.println("No existe el equipo selecionado");
+            }
             try {
                 listaEquipoListo.remove(eq2);
 
@@ -464,9 +479,66 @@ public class Main {
             System.out.println("Ingrese el clima del partido");
             String Clima = scan.next();
 
+          int  contA = ContArbitros();
+          int conta2 = 0;
+            String A = "";
+            int num  =0;
+            int  contAlib = 0;
+             List<Arbitro> listaArbitroLib = new ArrayList<>();
+            int i = 0;
+
+
+                    if (contA == 0) {
+                        System.out.println("No existen arbitros");
+                    }
+                    if(contA <3)
+                    {
+                        System.out.println("No hay suficientes arbitros");
+                    }
+else {
+                        for (Arbitro unA : listaArbitro) {
+                            for (ArbitroPartido unAP : listaArbitroPartido) {
+                                if (id.equals(unAP.getIdPartido())) {
+                                    contAlib++;
+                                }
+
+
+                            }
+                            if (contAlib == 0) {
+                                listaArbitroLib.add(unA);
+
+                            }
+                        }
+                        while(i<3) {
+                            conta2=0;
+                            for (Arbitro unA : listaArbitroLib) {
+                                System.out.println(conta2 + " " + unA.toString());
+                                conta2++;
+                            }
+                            System.out.println("Ingrese el numero del  arbitro");
+                             num = scan.nextInt();
+                             try {
+
+                                 A = listaArbitroLib.get(num).getId();
+
+                                 ArbitroPartido AP = new ArbitroPartido(A, id);
+                                 listaArbitroPartido.add(AP);
+                                 listaArbitroLib.remove(num);
+                                 i++;
+                             }
+                             catch (Exception e)
+                             {
+                                 System.out.println("Arbitro no valido");
+                             }
+                        }
+
+
+
+                    }
+
             Partido newP = new Partido(id, Est, dia,Hora,Clima,Local.getId(),Vistiante.getId());
             int opcion = 1;
-            MostrarPartido(id,Local.getId(),Vistiante.getId());
+            MostrarPartido(id, Est, dia,Hora,Clima,Local.getId(),Vistiante.getId());
 
             while (opcion != 0) {
                 System.out.println("Seleccione una accion del partido:\n1. Anotar gol.\n2. Cambio de jugador.\n0. Finalizar partido.");
@@ -479,7 +551,7 @@ public class Main {
                         altaGol(id,Local.getId(),Vistiante.getId());
                         break;
                     case 2:
-                        cambioJugador(id);
+                        cambioJugador(id,Local.getId(),Vistiante.getId());
                         break;
 
                     default:
@@ -488,9 +560,10 @@ public class Main {
                 }
             }
 
-
-
-
+            System.out.println("Ingrese los minutos de juego");
+             int MinJuego = scan.nextInt();
+            Partido newPF = new Partido(id, Est, dia,Hora,MinJuego,Clima,Local.getId(),Vistiante.getId());
+listaPartido.add(newPF);
 
         }
     }
@@ -548,29 +621,138 @@ try {
             System.out.println("No se pudo registrar el gol");
         }
     }
-    public static void cambioJugador(String id) {
+    public static void cambioJugador(String id, String local, String visitantes) {
+        System.out.println("¿El cambio de jugadores es del equipo local o visitante?");
+        String equipo = String.valueOf(scan.next().toLowerCase().charAt(0));
+        List<Jugador> listaJugadorESelct = new ArrayList<>();
+        if (equipo.equals("l")) {
+            for (JugadorEquipo unJE : listaJugadorEquipo) {
+                for (Jugador unJugador : listaJugador) {
+                    if (unJE.getIdEquipo().equals(local) &&
+                            unJE.getIdJugador().equals(unJugador.getId())) {
+
+                        listaJugadorESelct.add(unJugador);
+                    }
+                }
+            }
+        }
+        if (equipo.equals("v")) {
+            {
+                for (JugadorEquipo unJE : listaJugadorEquipo) {
+                    for (Jugador unJugador : listaJugador) {
+                        if (unJE.getIdEquipo().equals(visitantes) &&
+                                unJE.getIdJugador().equals(unJugador.getId())) {
+
+                            listaJugadorESelct.add(unJugador);
+                        }
+                    }
+                }
+            }
+        }
+        int cont = 0;
+        for(Jugador unJugador : listaJugadorESelct){
+            if(unJugador.getTipo().equals("T")){
+                System.out.println(cont+" "+unJugador.getNombre()+" "+unJugador.getApellido());
+                cont++;
+            }
+
+        }
+        System.out.println("Ingrese el jugador que quiere cambiar");
+        int jug =  scan.nextInt();
+        String idJugadorT = "";
+        cont = 0;
+        for(Jugador unJugador : listaJugadorESelct){
+            if(unJugador.getTipo().equals("T")){
+                if(cont == jug){
+                    idJugadorT = unJugador.getId();
+                }
+                cont++;
+            }
+        }
+        System.out.println("Ingrese el jugador que lo va a reemplazar.");
+        for(Jugador unJugador : listaJugadorESelct) {
+            if (unJugador.getTipo().equals("S")) {
+                System.out.println(cont + " " + unJugador.getNombre() + " " + unJugador.getApellido());
+                cont++;
+            }
+        }
+        jug = scan.nextInt();
+        String idJugadorS = "";
+        cont = 0;
+        for(Jugador unJugador : listaJugadorESelct){
+            if(unJugador.getTipo().equals("S")){
+                if(cont == jug){
+                    idJugadorS = unJugador.getId();
+                }
+                cont++;
+            }
+        }
+        try{
+            for (Jugador unJugador : listaJugador){
+                if(unJugador.getId().equals(idJugadorT)){
+                    unJugador.setTipo("S");
+                }
+                if(unJugador.getId().equals(idJugadorS)){
+                    unJugador.setTipo("T");
+                }
+            }
+            System.out.println("Cambio realizado3 con exito.");
+        }catch (Exception e){
+            System.out.println("Ocurrio un error.");
+        }
+
 
     }
 
-    public static void MostrarPartido(String id, String local, String visitantes)
+    public static void MostrarPartido(String id,String Est, short dia, String Hora, String Clima, String local, String visitantes)
     {
+        List<Jugador> listaJugadorV = new ArrayList<>();
+        List<Jugador> listaJugadorL = new ArrayList<>();
         String J = "";
+System.out.println("Jugadores");
+
 
         for(JugadorEquipo newJQ :listaJugadorEquipo){
         for(Jugador unJugador : listaJugador) {
 
                 if (newJQ.getIdEquipo().equals(local) && newJQ.getIdJugador().equals(unJugador.getId())) {
-                    J = "Local";
-                    System.out.println(J + " " + unJugador.toString());
+
+                    listaJugadorL.add(unJugador);
+
                 }
                 if(newJQ.getIdEquipo().equals(visitantes) && newJQ.getIdJugador().equals(unJugador.getId()))
             {
-                J = "Visitantes";
-                System.out.println(J + " " + unJugador.toString());
-            }
+                listaJugadorV.add(unJugador);
             }
         }
+        }
+                System.out.println("Jugadores locales");
+                for(Jugador unJ : listaJugadorL)
+                {
+                    System.out.println(unJ);
+                }
+            System.out.println("Jugadores Visitantes");
+            for(Jugador unJ : listaJugadorV)
+            {
+                System.out.println(unJ);
+            }
 
+
+        System.out.println(Est);
+        System.out.println(dia);
+        System.out.println(Hora);
+        System.out.println(Clima);
+        System.out.println("Arbitros");
+        for(ArbitroPartido AP : listaArbitroPartido)
+        for (Arbitro A : listaArbitro)
+        {
+        {
+            if(AP.getIdPartido().equals(id)  && AP.getIdArbitro().equals(A.getId()))
+            {
+                System.out.println(A.toString());
+            }
+        }
+        }
     }
 
 

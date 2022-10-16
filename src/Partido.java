@@ -83,4 +83,14 @@ public class Partido {
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
     }
+    public Partido(String id, String estadio, short dia, String hora, String clima, String equipoLocal, String equipoVisitante) {
+        this.id = id;
+        this.estadio = estadio;
+        this.dia = dia;
+        this.hora = hora;
+        this.clima = clima;
+        this.equipoLocal = equipoLocal;
+        this.equipoVisitante = equipoVisitante;
+    }
+
 }

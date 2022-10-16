@@ -14,3 +14,19 @@
 14 - lucas - blue - Defensor - 19 - s
 15 - joaquin - red - Defensor - 19 - s
 16 - ruben - pepito - Defensor - 20 - s
+17 - jose - manuelita - Defensor - 30 - t
+18 - matias - perro - Arquero - 32 - t
+19 - pepito - Rodríguez - Saguero - 20 - t
+20 - joselito - González - Lateral - 21 - t
+21 - gaston - Pérez - Libero - 31 - t
+22 - bruno - Martínez - Medio Centro - 23 - t
+23 - juan - Gayol - Volante - 26 - t
+24 - jose - Rodríguez - Enganche - 27 - t
+25 - pedro - Gato - Volante tapon - 21 - t
+26 - nico - Pan - Defensa Central - 34 - t
+27 - dario - MH - Interior Derecho - 27 - t
+28 - marcos - Ibai - Defensor - 28 - s
+29 - manuel - Orslok - Defensor - 29 - s
+30 - lucas - blue - Defensor - 19 - s
+31 - joaquin - red - Defensor - 19 - s
+32 - ruben - pepito - Defensor - 20 - s
